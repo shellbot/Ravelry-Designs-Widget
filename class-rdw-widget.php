@@ -11,11 +11,9 @@ class Rdw_Widget extends WP_Widget
 	{
 		parent::__construct(
 			'ravelry_designs_widget',
-			__('Widgetty Title', 'ravelry-designs-widget'),
+			__('Ravelry Designs', 'ravelry-designs-widget'),
 			array(
-				'description' => __('Widgetty Description', 'ravelry-designs-widget')
-				// 'before_title' => '<h3 class="widget-title">',
-				// 'after_title' => '</h3>'
+				'description'   => __('Display a list of your own designs from Ravelry', 'ravelry-designs-widget'),
 			)
 		);
 	}
@@ -56,7 +54,7 @@ class Rdw_Widget extends WP_Widget
 			$title = $instance['title'];
 		}
 		else {
-			$title = __('Untitled', 'ravelry-designs-widget');
+			$title = __('My Ravelry Patterns', 'ravelry-designs-widget');
 		}
 		?>
 			<p>
