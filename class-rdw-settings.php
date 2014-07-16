@@ -117,8 +117,8 @@ class Rdw_Settings
         	$new_input['pattern_display_count'] = absint($input['pattern_display_count']);
         }
 
-        if (isset($input['pattern_display_count'])) {
-        	$new_input['pattern_display_count'] = sanitize_text_field($input['pattern_display_count'] );
+        if (isset($input['ravelry_designer_name'])) {
+        	$new_input['ravelry_designer_name'] = sanitize_text_field($input['ravelry_designer_name'] );
         }
 
         return $new_input;
