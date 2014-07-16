@@ -4,11 +4,11 @@
  */
 /*
 Plugin Name: Ravelry Designs Widget
-Plugin URI: http://blahdeblah.com/ravelry-designs-widget/
-Description: Blah de blah
+Plugin URI: http://shellbotics.com/wordpress-plugins/ravelry-designs-widget/
+Description: Display your own knitting & crochet designs straight from Ravelry.
 Version: 0.0.1
-Author: ME or something
-Author URI: http://automattic.com/wordpress-plugins/
+Author: Shellbot
+Author URI: http://shellbotics.com
 Text Domain: ravelry-designs-widget
 */
 

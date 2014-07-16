@@ -36,7 +36,7 @@ class Rdw_Settings
 		register_setting(
 			'rdw_settings_group',
 			'rdw_settings',
-			array(self::instance(), sanitizeInputs)
+			array(self::instance(), 'sanitizeInputs')
 		);
 
 		// Define settings form sections
