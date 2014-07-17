@@ -1,5 +1,4 @@
 <?php
-require_once PLUGIN_PATH . 'class-rdw-settings.php';
 require_once PLUGIN_PATH . 'class-rdw-widget.php';
 
 class Ravelry_Design_Widget
@@ -29,5 +28,4 @@ class Ravelry_Design_Widget
 
 }
 
-Rdw_Settings::init();
 Ravelry_Design_Widget::init();
