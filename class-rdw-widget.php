@@ -35,33 +35,45 @@ class Rdw_Widget extends WP_Widget
 		if (!empty($title)) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
-
-                $name = 'Michelle May';
-                $api_url = RAVELRY_API_URL . '/patterns/search.json?query=' . urlencode($name);
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, RAVELRY_API_URL . '/patterns/search.json?designer=' . urlencode($name));
-                curl_setopt($ch, CURLOPT_USERPWD, RAVELRY_ACCESS_KEY . ':' . RAVELRY_PERSONAL_KEY);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  
-                $output = curl_exec($ch);
-                $info = curl_getinfo($ch);
-                curl_close($ch);
-
-                $data = json_decode($output);
-
-                //var_dump($data->patterns[1]);
-                //var_dump($info);
                 
-                $pattern_list = '<ul>';
-                
-                foreach( $data->patterns as $pattern ) {
-                    $pattern_list .= '<li><a href="' . RAVELRY_BASE_URL . $pattern->permalink . '"><img src="' . $pattern->first_photo->square_url  . '" alt="' . $pattern->name  . '" height="40" width="40">' . $pattern->name . '</a></li>';
+                if( empty( $instance['rav_designer_name'] ) ) {
+                    
+                    echo '<p>Valid Ravelry designer name required.</p>';
+                    
+                } else {
+
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, RAVELRY_API_URL . '/patterns/search.json?designer=' . urlencode( $instance['rav_designer_name'] ) );
+                    curl_setopt($ch, CURLOPT_USERPWD, RAVELRY_ACCESS_KEY . ':' . RAVELRY_PERSONAL_KEY);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  
+                    $output = curl_exec($ch);
+                    $info = curl_getinfo($ch);
+                    curl_close($ch);
+
+                    $data = json_decode($output);
+                    
+                    $i = 1;
+
+                    $pattern_list = '<ul>';
+
+                    foreach( $data->patterns as $pattern ) {
+                        
+                        if( $i > $instance['show_num'] ) {
+                            continue;
+                        } 
+                        
+                        $pattern_list .= '<li><a href="' . RAVELRY_BASE_URL . $pattern->permalink . '"><img src="' . $pattern->first_photo->square_url  . '" alt="' . $pattern->name  . '" height="40" width="40">' . $pattern->name . '</a></li>';
+                        
+                        $i++;
+                        
+                    }
+
+                    $pattern_list .= '</ul>';
+
+                    echo $pattern_list;
+                    
                 }
-                
-                $pattern_list .= '</ul>';
-                
-                echo $pattern_list;
 
 		echo $args['after_widget'];
 	}
