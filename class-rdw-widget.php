@@ -77,9 +77,13 @@ class Rdw_Widget extends WP_Widget
  	{
  		if (isset($instance['title'])) {
 			$title = $instance['title'];
+                        $designer = $instance['rav_designer_name'];
+                        $show_num = $instance['show_num'];
 		}
 		else {
 			$title = __('My Ravelry Patterns', 'ravelry-designs-widget');
+                        $designer = '';
+                        $show_num = '3';
 		}
 		?>
 			<p>
@@ -90,6 +94,23 @@ class Rdw_Widget extends WP_Widget
 					id="<?php echo $this->get_field_id('title'); ?>"
 					name="<?php echo $this->get_field_name('title'); ?>"
 					value="<?php echo esc_attr($title); ?>" />
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('rav_designer_name'); ?>"><?php _e('Ravelry designer name:'); ?></label> 
+				<input
+					type="text"
+					class="widefat"
+					id="<?php echo $this->get_field_id('rav_designer_name'); ?>"
+					name="<?php echo $this->get_field_name('rav_designer_name'); ?>"
+					value="<?php echo esc_attr($designer); ?>" />
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('show_num'); ?>"><?php _e('Number of patterns to show:'); ?></label> 
+				<input
+					type="text"
+					id="<?php echo $this->get_field_id('show_num'); ?>"
+					name="<?php echo $this->get_field_name('show_num'); ?>"
+					value="<?php echo esc_attr($show_num); ?>" size="3"/>
 			</p>
 		<?php 
 	}
@@ -108,7 +129,9 @@ class Rdw_Widget extends WP_Widget
 	{
 		$instance = array();
 		$instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
-
+                $instance['rav_designer_name'] = (!empty($new_instance['rav_designer_name'])) ? strip_tags($new_instance['rav_designer_name']) : '';
+                $instance['show_num'] = (!empty($new_instance['show_num'])) ? strip_tags($new_instance['show_num']) : '';
+                
 		return $instance;
 	}
 
