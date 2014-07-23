@@ -91,11 +91,15 @@ class Rdw_Widget extends WP_Widget
 			$title = $instance['title'];
                         $designer = $instance['rav_designer_name'];
                         $show_num = $instance['show_num'];
+                        $layout = $instance['layout'];
+                        $show_price = $instance['show_price'];
 		}
 		else {
 			$title = __('My Ravelry Patterns', 'ravelry-designs-widget');
                         $designer = '';
                         $show_num = '3';
+                        $layout = 'layout_1';
+                        $show_price = 'show';
 		}
 		?>
 			<p>
@@ -124,6 +128,33 @@ class Rdw_Widget extends WP_Widget
 					name="<?php echo $this->get_field_name('show_num'); ?>"
 					value="<?php echo esc_attr($show_num); ?>" size="3"/>
 			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('layout'); ?>"><?php _e('Layout:'); ?></label> 
+				<select
+					id="<?php echo $this->get_field_id('layout'); ?>"
+					name="<?php echo $this->get_field_name('layout'); ?>">
+                                    
+                                        <option value="layout_1" <?php if( $layout == "layout_1" ) { echo 'selected="selected"'; } ?>>Layout 1</option>
+                                        <option value="layout_2" <?php if( $layout == "layout_2" ) { echo 'selected="selected"'; } ?>>Layout 2</option>
+                                        
+                                </select>
+			</p>
+			<p>
+				<label for="show_price_show"><?php _e('Show price'); ?></label> 
+				<input
+					type="radio"
+					id="show_price_show"
+					name="<?php echo $this->get_field_name('show_price'); ?>"
+					value="show"
+                                        <?php if( $show_price == "show" ) { echo 'checked="checked"'; } ?>/>
+                                <label for="show_price_hide"><?php _e('Hide price'); ?></label> 
+				<input
+					type="radio"
+					id="show_price_hide"
+					name="<?php echo $this->get_field_name('show_price'); ?>"
+					value="hide"
+                                        <?php if( $show_price == "hide" ) { echo 'checked="checked"'; } ?>/>
+			</p>
 		<?php 
 	}
 
@@ -143,6 +174,9 @@ class Rdw_Widget extends WP_Widget
 		$instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
                 $instance['rav_designer_name'] = (!empty($new_instance['rav_designer_name'])) ? strip_tags($new_instance['rav_designer_name']) : '';
                 $instance['show_num'] = (!empty($new_instance['show_num'])) ? strip_tags($new_instance['show_num']) : '';
+                $instance['layout'] = (!empty($new_instance['layout'])) ? strip_tags($new_instance['layout']) : '';
+                $instance['show_price'] = (!empty($new_instance['show_price'])) ? strip_tags($new_instance['show_price']) : '';
+                
                 
 		return $instance;
 	}
