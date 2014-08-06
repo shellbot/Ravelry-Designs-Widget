@@ -43,7 +43,7 @@ class Rdw_Widget extends WP_Widget
                 } else {
 
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, RAVELRY_API_URL . '/patterns/search.json?designer=' . urlencode( $instance['rav_designer_name'] ) );
+                    curl_setopt($ch, CURLOPT_URL, RAVELRY_API_URL . '/patterns/search.json?page_size=' . $instance['show_num'] . '&designer=' . urlencode( $instance['rav_designer_name'] ) );
                     curl_setopt($ch, CURLOPT_USERPWD, RAVELRY_ACCESS_KEY . ':' . RAVELRY_PERSONAL_KEY);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  
@@ -52,10 +52,10 @@ class Rdw_Widget extends WP_Widget
                     curl_close($ch);
 
                     $data = json_decode($output);
-                    
+
                     $i = 1;
 
-                    $pattern_list = '<ul>';
+                    $pattern_list = '<ul class="' . $instance['layout'] . '">';
 
                     foreach( $data->patterns as $pattern ) {
                         
@@ -63,7 +63,18 @@ class Rdw_Widget extends WP_Widget
                             continue;
                         } 
                         
-                        $pattern_list .= '<li><a href="' . RAVELRY_BASE_URL . $pattern->permalink . '"><img src="' . $pattern->first_photo->square_url  . '" alt="' . $pattern->name  . '" height="40" width="40">' . $pattern->name . '</a></li>';
+                        if( $instance['layout'] == 'layout_1' ) {
+                            $photo = $pattern->first_photo->square_url;
+                            $pattern_list .= '<li><a href="' . RAVELRY_BASE_URL . $pattern->permalink . '"><img src="' . $photo .'" height="40" width="40">' . $pattern->name . '</a></li>';
+                        } else {
+                            $photo = $pattern->first_photo->medium_url;
+                            $pattern_list .= '<li><div class="rav-container">'
+                                    . '<div class="rav-dummy"></div>'
+                                    . '<div class="rav-element" style="background: url('.$photo.') no-repeat center center; background-size: cover;">'
+                                    . '<span class="pattern-name"><a href="' . RAVELRY_BASE_URL . $pattern->permalink . '">' . $pattern->name . '</a></span>'
+                                    . '</div>'
+                                    . '</div></li>';
+                        }          
                         
                         $i++;
                         
