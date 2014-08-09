@@ -20,6 +20,7 @@ class sb_ravelry_designs_widget {
         define('RAVELRY_BASE_URL', 'http://www.ravelry.com/patterns/library/');
         
         add_action( 'wp_print_styles', array( $this, 'rdw_add_styles' ) );
+        add_shortcode( 'sb_ravelry_designs', array( $this, 'rdw_shortcode' ) );
 
         require_once PLUGIN_PATH . 'class-ravelry-designs-widget.php'; 
     }
@@ -29,22 +30,50 @@ class sb_ravelry_designs_widget {
             . '.rav-container { display: inline-block; position: relative; width: 100%; }'
             . '.rav-dummy { margin-top: 100%; }'
             . '.rav-element { position: absolute;top: 0;bottom: 0;left: 0;right: 0;}'
-            . '.widget_ravelry_designs_widget ul, .widget_ravelry_designs_widget li { list-style-type: none !important; }'
+            . '.widget_ravelry_designs_widget ul, .widget_ravelry_designs_widget li { list-style-type: none !important; margin-left: 0 !important; }'
             . '.widget_ravelry_designs_widget .layout_1 li { margin-bottom: 5px; }'
             . '.widget_ravelry_designs_widget .layout_1 img { display: inline-block; margin-right: 5px; vertical-align: middle; }'
             . '.widget_ravelry_designs_widget .layout_2 .pattern-name { background: rgba(0,0,0,0.7); bottom: 0; display: block; margin-left: 0; position: absolute; width: 100%;}'
             . '.widget_ravelry_designs_widget .layout_2 .pattern-name a {color: #fff !important; display: block; padding: 10px; text-align: center; text-decoration: none;}'
+            . '.widget_ravelry_designs_widget .cols-2 li { float: left; margin-bottom: 1%; margin-right: 2%; width: 49%; }'
+            . '.widget_ravelry_designs_widget .cols-3 li { float: left; margin-bottom: 0.25%; margin-right: 1%; width: 32.333%; }'
+            . '.widget_ravelry_designs_widget .cols-4 li { float: left; margin-bottom: 0.25%; margin-right: 1%; width: 24%; }'
+            . '.widget_ravelry_designs_widget .cols-2 li:nth-child(2n), .widget_ravelry_designs_widget .cols-3 li:nth-child(3n), .widget_ravelry_designs_widget .cols-4 li:nth-child(4n) {  margin-right: 0 !important; }'
             . '</style>';
 
         echo $css;   
     }
     
+    function rdw_shortcode( $args ) { 
+        extract( shortcode_atts(array(
+            'designer' => 'Michelle May',
+            'layout' => 'layout_2',
+            'show' => '3',
+            'cols' => '3',
+            'new_tab' => 'no',
+        ), $args ) );
+        
+        $final_args = array();
+        
+        $final_args['rav_designer_name'] = $designer;
+        $final_args['show_num'] = $show;
+        $final_args['layout'] = $layout;
+        $final_args['columns'] = $cols;
+        $final_args['new_tab'] = $new_tab;
+        
+        ob_start();
+        echo '<div class="widget_ravelry_designs_widget">';
+        $this->show_patterns( $final_args );
+        echo '</div>';
+        ob_end_flush();
+    }
+    
     function show_patterns( $args ) {
-
+        
         if( empty( $args['rav_designer_name'] ) ) {
             echo '<p>Valid Ravelry designer name required.</p>';
         } else {
-            if ( false === ( $output = get_transient( 'rdw_ravelry_data' ) ) ) {        
+            if ( false === ( $output = get_transient( md5( 'sbrdw'.serialize( $args ) ) ) ) ) {        
 
                 $secret = 'CVBR21QepTC1Zwj0MEvHz+1rvmv285bH7XsF9tir'; // your secret key
 
@@ -80,7 +109,7 @@ class sb_ravelry_designs_widget {
                 // close cURL resource to free up system resources
                 curl_close($ch); 
 
-                set_transient( 'rdw_ravelry_data', $output, 60*10 );        
+                //set_transient( 'rdw_ravelry_data', $output, 60*10 );        
 
             }
 
@@ -88,7 +117,7 @@ class sb_ravelry_designs_widget {
 
             $i = 1;
 
-            $pattern_list = '<ul class="' . $args['layout'] . '">';
+            $pattern_list = '<ul class="' . $args['layout'] . ' cols-' . $args['columns'] . '">';
 
             foreach( $data->patterns as $pattern ) {
 
@@ -122,6 +151,8 @@ class sb_ravelry_designs_widget {
             $pattern_list .= '</ul>';
 
             echo $pattern_list;
+            
+            set_transient( md5( 'sbrdw'.serialize( $args ) ) , $output, 10 * 60);
         }
     }   
 
