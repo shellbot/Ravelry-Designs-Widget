@@ -32,6 +32,7 @@ function rdw_add_styles() {
             . '.rav-container { display: inline-block; position: relative; width: 100%; }'
             . '.rav-dummy { margin-top: 100%; }'
             . '.rav-element { position: absolute;top: 0;bottom: 0;left: 0;right: 0;}'
+            . '.widget_ravelry_designs_widget ul, .widget_ravelry_designs_widget li { list-style-type: none !important; }'
             . '.widget_ravelry_designs_widget .layout_1 li { margin-bottom: 5px; }'
             . '.widget_ravelry_designs_widget .layout_1 img { display: inline-block; margin-right: 5px; vertical-align: middle; }'
             . '.widget_ravelry_designs_widget .layout_2 .pattern-name { background: rgba(0,0,0,0.7); bottom: 0; display: block; margin-left: 0; position: absolute; width: 100%;}'
