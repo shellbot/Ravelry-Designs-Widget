@@ -30,11 +30,12 @@ class sb_ravelry_designs_widget {
             . '.rav-container { display: inline-block; position: relative; width: 100%; }'
             . '.rav-dummy { margin-top: 100%; }'
             . '.rav-element { position: absolute;top: 0;bottom: 0;left: 0;right: 0;}'
+            . '.rav-element a.thing { display: block; height: 100%; }'
             . '.widget_ravelry_designs_widget ul, .widget_ravelry_designs_widget li { list-style-type: none !important; margin-left: 0 !important; }'
             . '.widget_ravelry_designs_widget .layout_1 li { margin-bottom: 5px; }'
             . '.widget_ravelry_designs_widget .layout_1 img { display: inline-block; margin-right: 5px; vertical-align: middle; }'
-            . '.widget_ravelry_designs_widget .layout_2 .pattern-name { background: rgba(0,0,0,0.7); bottom: 0; display: block; margin-left: 0; position: absolute; width: 100%;}'
-            . '.widget_ravelry_designs_widget .layout_2 .pattern-name a {color: #fff !important; display: block; padding: 10px; text-align: center; text-decoration: none;}'
+            . '.widget_ravelry_designs_widget .layout_2 .pattern-name { background: rgba(0,0,0,0.7); bottom: 0; display: block; margin-left: 0; padding: 10px 0; position: absolute; width: 100%; }'
+            . '.widget_ravelry_designs_widget .layout_2  a {color: #fff !important; text-align: center; text-decoration: none;}'
             . '.widget_ravelry_designs_widget .cols-2 li { float: left; margin-bottom: 1%; margin-right: 2%; width: 49%; }'
             . '.widget_ravelry_designs_widget .cols-3 li { float: left; margin-bottom: 0.25%; margin-right: 1%; width: 32.333%; }'
             . '.widget_ravelry_designs_widget .cols-4 li { float: left; margin-bottom: 0.25%; margin-right: 1%; width: 24%; }'
@@ -107,9 +108,7 @@ class sb_ravelry_designs_widget {
                 $output = curl_exec($ch);
 
                 // close cURL resource to free up system resources
-                curl_close($ch); 
-
-                //set_transient( 'rdw_ravelry_data', $output, 60*10 );        
+                curl_close($ch);        
 
             }
 
@@ -139,7 +138,9 @@ class sb_ravelry_designs_widget {
                     $pattern_list .= '<li><div class="rav-container">'
                             . '<div class="rav-dummy"></div>'
                             . '<div class="rav-element" style="background: url('.$photo.') no-repeat center center; background-size: cover;">'
-                            . '<span class="pattern-name"><a href="' . RAVELRY_BASE_URL . $pattern->permalink . '" ' . $target . '>' . $pattern->name . '</a></span>'
+                            . '<a class="thing" href="' . RAVELRY_BASE_URL . $pattern->permalink . '" ' . $target . '>'
+                            . '<span class="pattern-name">' . $pattern->name . '</span>'
+                            . '</a>'
                             . '</div>'
                             . '</div></li>';
                 }          
@@ -159,4 +160,3 @@ class sb_ravelry_designs_widget {
 }
 
 $sbrdw = new sb_ravelry_designs_widget();
-
