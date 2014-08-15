@@ -56,6 +56,7 @@ class Rdw_Widget extends WP_Widget
                         $designer = $instance['rav_designer_name'];
                         $show_num = $instance['show_num'];
                         $layout = $instance['layout'];
+                        $sort = $instance['sort'];
                         $new_tab = $instance['new_tab'];
                         $show_price = $instance['show_price'];
 		}
@@ -64,6 +65,7 @@ class Rdw_Widget extends WP_Widget
                         $designer = '';
                         $show_num = '3';
                         $layout = 'layout_1';
+                        $sort = 'date';
                         $new_tab = 'no';
                         $show_price = 'show';
 		}
@@ -102,6 +104,26 @@ class Rdw_Widget extends WP_Widget
                                     
                                         <option value="layout_1" <?php if( $layout == "layout_1" ) { echo 'selected="selected"'; } ?>>Layout 1</option>
                                         <option value="layout_2" <?php if( $layout == "layout_2" ) { echo 'selected="selected"'; } ?>>Layout 2</option>
+                                        
+                                </select>
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id('sort'); ?>"><?php _e('Sort by:'); ?></label> 
+				<select
+					id="<?php echo $this->get_field_id('sortt'); ?>"
+					name="<?php echo $this->get_field_name('sort'); ?>">
+                                    
+                                        <option value="recently-popular" <?php if( $sort == "recently-popular" ) { echo 'selected="selected"'; } ?>>Hot right now</option>
+                                        <option value="name" <?php if( $sort == "name" ) { echo 'selected="selected"'; } ?>>Name</option>
+                                        <option value="popularity" <?php if( $sort == "popularity" ) { echo 'selected="selected"'; } ?>>Most popular</option>
+                                        <option value="projects" <?php if( $sort == "projects" ) { echo 'selected="selected"'; } ?>>Most projects</option>
+                                        <option value="favorites" <?php if( $sort == "favorites" ) { echo 'selected="selected"'; } ?>>Most favourites</option>
+                                        <option value="queues" <?php if( $sort == "queues" ) { echo 'selected="selected"'; } ?>>Most queued</option>
+                                        <option value="date" <?php if( $sort == "date" ) { echo 'selected="selected"'; } ?>>Recently published</option>
+                                        <option value="created" <?php if( $sort == "created" ) { echo 'selected="selected"'; } ?>>Recently added to Ravelry</option>
+                                        <option value="rating" <?php if( $sort == "rating" ) { echo 'selected="selected"'; } ?>>Rating (highest first)</option>
+                                        <option value="difficulty" <?php if( $sort == "difficulty" ) { echo 'selected="selected"'; } ?>>Difficulty (easiest first)</option>
+                                        <option value="yarn" <?php if( $sort == "yarn" ) { echo 'selected="selected"'; } ?>>Yarn required (least first)</option>
                                         
                                 </select>
 			</p>
@@ -160,6 +182,7 @@ class Rdw_Widget extends WP_Widget
             $instance['rav_designer_name'] = (!empty($new_instance['rav_designer_name'])) ? strip_tags($new_instance['rav_designer_name']) : '';
             $instance['show_num'] = (!empty($new_instance['show_num'])) ? strip_tags($new_instance['show_num']) : '';
             $instance['layout'] = (!empty($new_instance['layout'])) ? strip_tags($new_instance['layout']) : '';
+            $instance['sort'] = (!empty($new_instance['sort'])) ? strip_tags($new_instance['sort']) : '';
             $instance['new_tab'] = (!empty($new_instance['new_tab'])) ? strip_tags($new_instance['new_tab']) : '';
             $instance['show_price'] = (!empty($new_instance['show_price'])) ? strip_tags($new_instance['show_price']) : '';
 

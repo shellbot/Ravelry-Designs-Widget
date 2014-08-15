@@ -75,17 +75,19 @@ class sb_ravelry_designs_widget {
             echo '<p>Valid Ravelry designer name required.</p>';
         } else {
             if ( false === ( $output = get_transient( md5( 'sbrdw'.serialize( $args ) ) ) ) ) {        
-
                 $secret = 'CVBR21QepTC1Zwj0MEvHz+1rvmv285bH7XsF9tir'; // your secret key
 
                 $data = array();
 
                 $data['access_key'] = '7B78C7930DB53FE4C60D'; // your access key
                 $data['designer'] = $args['rav_designer_name']; // the store search query for full text search
+                $data['sort'] = $args['sort'];
                 $data['page_size'] = $args['show_num']; // for example
                 $data['timestamp'] = date('c'); // gets the current date/time
 
                 $string = RAVELRY_API_URL . '/patterns/search.json?' . http_build_query($data);
+                echo 'stuff';
+                 var_dump($string);
 
                 $signature = base64_encode(hash_hmac('sha256', $string, $secret, true));
 
