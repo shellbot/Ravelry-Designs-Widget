@@ -57,7 +57,7 @@ class Rdw_Widget extends WP_Widget
                         $show_num = $instance['show_num'];
                         $layout = $instance['layout'];
                         $new_tab = $instance['new_tab'];
-                        $show_price = $instance['show_price'];
+                        //$show_price = $instance['show_price'];
 		}
 		else {
 			$title = __('My Ravelry Patterns', 'ravelry-designs-widget');
@@ -65,7 +65,7 @@ class Rdw_Widget extends WP_Widget
                         $show_num = '3';
                         $layout = 'layout_1';
                         $new_tab = 'no';
-                        $show_price = 'show';
+                        //$show_price = 'show';
 		}
 		?>
 			<p>
@@ -121,7 +121,7 @@ class Rdw_Widget extends WP_Widget
 					value="no"
                                         <?php if( $new_tab == "no" ) { echo 'checked="checked"'; } ?>/>
 			</p>
-			<p>
+<!--			<p>
 				<label for="show_price_show"><?php _e('Show price'); ?></label> 
 				<input
 					type="radio"
@@ -136,7 +136,7 @@ class Rdw_Widget extends WP_Widget
 					name="<?php echo $this->get_field_name('show_price'); ?>"
 					value="hide"
                                         <?php if( $show_price == "hide" ) { echo 'checked="checked"'; } ?>/>
-			</p>
+			</p>-->
 		<?php 
 	}
 
@@ -161,7 +161,7 @@ class Rdw_Widget extends WP_Widget
             $instance['show_num'] = (!empty($new_instance['show_num'])) ? strip_tags($new_instance['show_num']) : '';
             $instance['layout'] = (!empty($new_instance['layout'])) ? strip_tags($new_instance['layout']) : '';
             $instance['new_tab'] = (!empty($new_instance['new_tab'])) ? strip_tags($new_instance['new_tab']) : '';
-            $instance['show_price'] = (!empty($new_instance['show_price'])) ? strip_tags($new_instance['show_price']) : '';
+            //$instance['show_price'] = (!empty($new_instance['show_price'])) ? strip_tags($new_instance['show_price']) : '';
 
 
             return $instance;
