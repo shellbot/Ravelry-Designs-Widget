@@ -2,7 +2,7 @@
 Contributors: Shellbot, tdous
 Tags: Ravelry, knitting, crochet, widget
 Requires at least: 3.0
-Tested up to: 4.3
+Tested up to: 4.9.6
 Donate link: http://patreon.com/shellbot
 Stable tag: trunk
 License: GPLv2 or later
